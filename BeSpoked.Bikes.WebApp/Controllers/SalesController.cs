@@ -83,9 +83,9 @@ namespace BeSpoked.Bikes.WebApp.Controllers
         {
             // Display sale data first 
             // Call get product + get customer + get sale person
-            var productList = await _apiService.GetListAsync<ProductList>("api/Product");
-            var customerList = await _apiService.GetListAsync<CustomerList>("api/Customer");
-            var salePersonList = await _apiService.GetListAsync<SalePersonList>("api/SalePerson");
+            var productList = await _apiService.GetsaleListAsync<ProductList>("api/Product");
+            var customerList = await _apiService.GetsaleListAsync<CustomerList>("api/Customer");
+            var salePersonList = await _apiService.GetsaleListAsync<SalePersonList>("api/SalePerson");
 
             ViewBag.Products = new SelectList(productList, "ProductID", "ProdName");
             ViewBag.Customer = new SelectList(customerList, "CUST_ID", "firstName");

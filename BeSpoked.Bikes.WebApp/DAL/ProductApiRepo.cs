@@ -13,6 +13,12 @@ namespace BeSpoked.Bikes.WebApp.DAL
             _httpClient = new HttpClient();
             _httpClient.BaseAddress = new Uri("https://localhost:7052"); // Set the base URL for the API
         }
+        /// <summary>
+        /// This Action will fetch the all product list form API
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="endpoint"></param>
+        /// <returns></returns>
         public async Task<List<T>> GetProductListAsync<T>(string endpoint)
         {
             var response = await _httpClient.GetAsync(endpoint);  // Make a GET request to the API
@@ -26,6 +32,12 @@ namespace BeSpoked.Bikes.WebApp.DAL
             return result;
         }
 
+        /// <summary>
+        /// This Action will help to post product info and will add to database
+        /// </summary>
+        /// <param name="product"></param>
+        /// <returns></returns>
+
         public async Task<bool> PostProductAsync(CreateProduct product)
         {
             var jsonContent = JsonConvert.SerializeObject(product);
@@ -36,7 +48,11 @@ namespace BeSpoked.Bikes.WebApp.DAL
             // Check if the POST request was successful
             return response.IsSuccessStatusCode;
         }
-
+        /// <summary>
+        /// This action will help to fetch product based on unique ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<ProductList> GetProductByIdAsync(Guid id)
         {
             var response = await _httpClient.GetAsync($"api/Product/{id}");  // API endpoint to fetch product by ID
@@ -53,6 +69,11 @@ namespace BeSpoked.Bikes.WebApp.DAL
             return null;
         }
 
+        /// <summary>
+        /// This action will help to update the product 
+        /// </summary>
+        /// <param name="product"></param>
+        /// <returns></returns>
         public async Task<bool> UpdateProductAsync(ProductList product)
         {
             var jsonContent = JsonConvert.SerializeObject(product);
