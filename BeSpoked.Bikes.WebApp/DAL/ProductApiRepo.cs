@@ -5,10 +5,10 @@ using System.Text;
 
 namespace BeSpoked.Bikes.WebApp.DAL
 {
-    public class BikeApiRepo
+    public class ProductApiRepo
     {
         private readonly HttpClient _httpClient;
-        public BikeApiRepo()
+        public ProductApiRepo()
         {
             _httpClient = new HttpClient();
             _httpClient.BaseAddress = new Uri("https://localhost:7052"); // Set the base URL for the API

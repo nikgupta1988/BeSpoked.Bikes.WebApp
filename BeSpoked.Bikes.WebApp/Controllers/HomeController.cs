@@ -8,12 +8,12 @@ namespace BeSpoked.Bikes.WebApp.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly BikeApiRepo _apiService;
+        private readonly ProductApiRepo _apiService;
 
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
-            _apiService = new BikeApiRepo();  // Initialize the API service
+            _apiService = new ProductApiRepo();  // Initialize the API service
 
         }
 
