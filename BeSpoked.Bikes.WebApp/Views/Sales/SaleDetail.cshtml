@@ -1,0 +1,92 @@
+﻿@model IEnumerable<BeSpoked.Bikes.WebApp.Models.DTO.ViewSaleDetailDTO>
+
+
+@{
+    ViewData["Title"] = "SaleDetail";
+
+    
+    
+
+}
+
+<h1>SaleDetail</h1>
+<div>
+    <h2>@ViewBag.Message</h2>
+</div>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+@using (Html.BeginForm("FilterRecord", "Sales", FormMethod.Post))
+{
+    <div>
+        <label for="SelectedDateTime">Select Date and Time:</label>
+        <input type="datetime-local" id="SelectedDateTime" name="selectedDateTime" />
+    </div>
+    <button type="submit">Submit</button>
+}
+
+@if (ViewBag.SelectedDateTime != null)
+{
+    <h3>You selected: @ViewBag.SelectedDateTime</h3>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Productname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.customerName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.saleDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.purchasePrise)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.salePerson)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Commision)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ComminsionAmount)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Productname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.customerName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.saleDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.purchasePrise)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.salePerson)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Commision) %
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ComminsionAmount) $
+            </td>
+           @*  <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td> *@
+        </tr>
+}
+    </tbody>
+</table>

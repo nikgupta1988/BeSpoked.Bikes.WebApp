@@ -1,0 +1,33 @@
+﻿@model BeSpoked.Bikes.WebApp.Models.CreatesaleModel
+
+@{
+    ViewBag.Title = "Create sale";
+}
+
+<h2>Create sale</h2>
+
+@using (Html.BeginForm("CreateSale", "Sales"))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        @Html.Label("Product", "Select Product")
+        @Html.DropDownList("ProductId", (SelectList)ViewBag.Products, "Select a Product", new { @class = "form-control" })
+        @Html.ValidationMessage("ProductId")
+    </div>
+
+     <div class="form-group">
+        @Html.Label("Customer", "Select Customer")
+        @Html.DropDownList("CUST_ID", (SelectList)ViewBag.Customer, "Select Customer", new { @class = "form-control" })
+        @Html.ValidationMessage("CUST_ID")
+    </div>
+
+    <div class="form-group">
+        @Html.Label("saleperson", "Select sale person")
+        @Html.DropDownList("SP_ID", (SelectList)ViewBag.salePerson, "Select sale person", new { @class = "form-control" })
+        @Html.ValidationMessage("SP_ID")
+    </div>
+    <br />
+
+    <button type="submit" class="btn btn-primary">Create Sale</button>
+}

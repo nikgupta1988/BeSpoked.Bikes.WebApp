@@ -12,6 +12,19 @@ namespace BeSpoked.Bikes.WebApp.DAL
             _httpClient = new HttpClient();
             _httpClient.BaseAddress = new Uri("https://localhost:7052"); // Set the base URL for the API
         }
+        public async Task<List<T>> GetListAsync<T>(string endpoint)
+        {
+            var response = await _httpClient.GetAsync(endpoint);  // Make a GET request to the API
+            response.EnsureSuccessStatusCode();  // Throws an exception if the status code is not successful
+
+            var responseContent = await response.Content.ReadAsStringAsync();  // Read response as string
+
+            // Deserialize the JSON response into the specified type (T)
+            var result = JsonConvert.DeserializeObject<List<T>>(responseContent);
+
+            return result;
+        }
+        
 
         public async Task<List<T>> GetsaleListAsync<T>(string endpoint)
         {
@@ -26,12 +39,12 @@ namespace BeSpoked.Bikes.WebApp.DAL
             return result;
         }
 
-        public async Task<bool> CreteSaleAsync(CreateProduct product)
+        public async Task<bool> CreteSaleAsync(CreatesaleModel product)
         {
             var jsonContent = JsonConvert.SerializeObject(product);
             var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
-            var response = await _httpClient.PostAsync("/api/Product/AddProduct", content);
+            var response = await _httpClient.PostAsync("/api/Sales/Createsale", content);
 
             // Check if the POST request was successful
             return response.IsSuccessStatusCode;
