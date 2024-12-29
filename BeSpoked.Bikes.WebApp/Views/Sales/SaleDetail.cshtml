@@ -22,8 +22,10 @@
         <label for="SelectedDateTime">Select Date and Time:</label>
         <input type="datetime-local" id="SelectedDateTime" name="selectedDateTime" />
     </div>
-    <button type="submit">Submit</button>
+    <button type="submit">Submit</button> 
+    @Html.ActionLink("CommisionReport", "CommisionReport")
 }
+
 
 @if (ViewBag.SelectedDateTime != null)
 {

@@ -14,6 +14,7 @@ namespace BeSpoked.Bikes.WebApp.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly SalesApiRepo _apiService;
+        public bool isReportWatch = false;
         public SalesController(ILogger<HomeController> logger)
         {
             _logger = logger;
@@ -21,7 +22,7 @@ namespace BeSpoked.Bikes.WebApp.Controllers
         }
 
 
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(string source)
         {
             // Get all sale data 
             var saleListdetail = await _apiService.GetsaleListAsync<ViesSaleDetail>("api/Sales");
@@ -44,10 +45,46 @@ namespace BeSpoked.Bikes.WebApp.Controllers
                 viewSale.Add(detail);
 
             }
-            ViewBag.message = TempData["Message"];
 
+            // create sale report 
+            // LINQ to group by salePerson and sum the ComminsionAmount
+            var summary = viewSale.GroupBy(s => s.salePerson)  // Group by salePerson
+                .Select(g => new
+                {
+                    SalePerson = g.Key,  // Unique SalePerson
+                    TotalComminsionAmount = g.Sum(s => s.ComminsionAmount)  // Sum of ComminsionAmount for each SalePerson
+                })
+                .ToList();
+
+            List<CommisionReport> cmsnReport = new List<CommisionReport>();
+            foreach (var item in summary)
+            {
+                CommisionReport obj = new CommisionReport
+                {
+                    CommissionAmout=item.TotalComminsionAmount,
+                    salePersonName = item.SalePerson
+                };
+                cmsnReport.Add(obj);
+
+            }
+            string currentAction = (string)RouteData.Values["action"];
+            ViewBag.message = TempData["Message"];            
+
+            if (source== "CommisionReport")
+            {
+                return View("Report",cmsnReport);
+            }
             return View("SaleDetail", viewSale);
         }
+        
+        public async Task<ActionResult> CommisionReport()
+        {
+            isReportWatch = true;
+
+            return RedirectToAction("Index", new { source = "CommisionReport" });
+            
+        }
+
         [HttpPost]
         public async Task<ActionResult> FilterRecord(DateTime? selectedDateTime)
         {
@@ -77,6 +114,7 @@ namespace BeSpoked.Bikes.WebApp.Controllers
 
             return View("SaleDetail", viewSale);
         }
+        
         [HttpGet]
         // GET: SalesController
         public async Task<ActionResult> Create()
