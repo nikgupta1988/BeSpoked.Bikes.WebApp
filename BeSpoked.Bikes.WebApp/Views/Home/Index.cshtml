@@ -1,0 +1,79 @@
+﻿@model IEnumerable<BeSpoked.Bikes.WebApp.Models.ProductList>
+
+@{
+    ViewData["Title"] = "Product Detail";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            @* <th>
+                @Html.DisplayNameFor(model => model.ProductID)
+            </th> *@
+            <th>
+                @Html.DisplayNameFor(model => model.ProdName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Manufacturer)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Style)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Purchase_Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sale_Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Qty_On_Hand)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Commission_Percentage)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                @* <td>
+                @Html.DisplayFor(modelItem => item.ProductID)
+            </td> *@
+                <td>
+                    @Html.HiddenFor(modelItem => item.ProductID)
+                    @Html.DisplayFor(modelItem => item.ProdName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Manufacturer)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Style)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Purchase_Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Sale_Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Qty_On_Hand)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Commission_Percentage)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { ProductID = item.ProductID }) |
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
